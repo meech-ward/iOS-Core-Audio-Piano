@@ -32,7 +32,7 @@ This could easily be changed to create a piano with any number of keys in any nu
 @protocol PianoViewDelegate
 
 @optional
--(void)pianoView:(PianoView *)piano keyDown:(short)key;
--(void)pianoView:(PianoView *)piano keyUp:(short)key;
+-(void)pianoView:(PianoView *)piano keyDown:(int)key;
+-(void)pianoView:(PianoView *)piano keyUp:(int)key;
 
 @end

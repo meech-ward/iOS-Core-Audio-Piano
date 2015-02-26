@@ -7,7 +7,6 @@
 //
 
 
-
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -19,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.audioController = [[AudioPlayerController alloc] init];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -36,15 +36,18 @@
 
 #pragma mark - Piano View Delegate
 
--(void)pianoView:(PianoView *)piano keyDown:(short)key {
+-(void)pianoView:(PianoView *)piano keyDown:(int)key {
     // Find the frequency using the piano key number
     // Equation found at http://en.wikipedia.org/wiki/Piano_key_frequencies
-    float frequency = pow(pow(2, 1.0/12.0), key-49)*440;
+    double frequency = pow(pow(2, 1.0/12.0), key-49)*440;
+    
+    // Play the frequency
+    [self.audioController playFrequency:frequency];
     
     NSLog(@"piano key down: %i, frequency: %f", key, frequency);
 }
 
--(void)pianoView:(PianoView *)piano keyUp:(short)key {
+-(void)pianoView:(PianoView *)piano keyUp:(int)key {
     
 }
 

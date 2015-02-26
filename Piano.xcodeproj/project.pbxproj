@@ -19,6 +19,9 @@
 		22388E8E1A365DCA003B22B6 /* PianoKeyWhite.m in Sources */ = {isa = PBXBuildFile; fileRef = 22388E871A365DCA003B22B6 /* PianoKeyWhite.m */; };
 		22388E8F1A365DCA003B22B6 /* PianoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22388E891A365DCA003B22B6 /* PianoView.m */; };
 		22388E901A365DCA003B22B6 /* UITouch+PianoKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 22388E8B1A365DCA003B22B6 /* UITouch+PianoKey.m */; };
+		229D23781A9FD8270033D7EC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229D23771A9FD8270033D7EC /* AudioToolbox.framework */; };
+		229D237B1A9FD9540033D7EC /* AudioPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 229D237A1A9FD9540033D7EC /* AudioPlayerController.m */; };
+		229D237E1A9FDD8A0033D7EC /* CoreAudioUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 229D237D1A9FDD8A0033D7EC /* CoreAudioUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,11 @@
 		22388E891A365DCA003B22B6 /* PianoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PianoView.m; sourceTree = "<group>"; };
 		22388E8A1A365DCA003B22B6 /* UITouch+PianoKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch+PianoKey.h"; sourceTree = "<group>"; };
 		22388E8B1A365DCA003B22B6 /* UITouch+PianoKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch+PianoKey.m"; sourceTree = "<group>"; };
+		229D23771A9FD8270033D7EC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		229D23791A9FD9540033D7EC /* AudioPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerController.h; sourceTree = "<group>"; };
+		229D237A1A9FD9540033D7EC /* AudioPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlayerController.m; sourceTree = "<group>"; };
+		229D237C1A9FDD8A0033D7EC /* CoreAudioUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreAudioUtility.h; sourceTree = "<group>"; };
+		229D237D1A9FDD8A0033D7EC /* CoreAudioUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreAudioUtility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229D23781A9FD8270033D7EC /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,7 @@
 		22388E4A1A365D45003B22B6 = {
 			isa = PBXGroup;
 			children = (
+				229D23771A9FD8270033D7EC /* AudioToolbox.framework */,
 				22388E551A365D45003B22B6 /* Piano */,
 				22388E6F1A365D46003B22B6 /* PianoTests */,
 				22388E541A365D45003B22B6 /* Products */,
@@ -100,6 +110,7 @@
 				22388E5B1A365D45003B22B6 /* AppDelegate.m */,
 				22388E5D1A365D45003B22B6 /* ViewController.h */,
 				22388E5E1A365D45003B22B6 /* ViewController.m */,
+				229D23761A9FD00D0033D7EC /* Audio */,
 				22388E7F1A365D96003B22B6 /* Piano */,
 				22388E601A365D45003B22B6 /* Main.storyboard */,
 				22388E631A365D45003B22B6 /* Images.xcassets */,
@@ -158,6 +169,17 @@
 				22388E8B1A365DCA003B22B6 /* UITouch+PianoKey.m */,
 			);
 			name = "Piano Keys";
+			sourceTree = "<group>";
+		};
+		229D23761A9FD00D0033D7EC /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				229D237C1A9FDD8A0033D7EC /* CoreAudioUtility.h */,
+				229D237D1A9FDD8A0033D7EC /* CoreAudioUtility.m */,
+				229D23791A9FD9540033D7EC /* AudioPlayerController.h */,
+				229D237A1A9FD9540033D7EC /* AudioPlayerController.m */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,9 +286,11 @@
 				22388E901A365DCA003B22B6 /* UITouch+PianoKey.m in Sources */,
 				22388E8E1A365DCA003B22B6 /* PianoKeyWhite.m in Sources */,
 				22388E5F1A365D45003B22B6 /* ViewController.m in Sources */,
+				229D237B1A9FD9540033D7EC /* AudioPlayerController.m in Sources */,
 				22388E8C1A365DCA003B22B6 /* PianoKey.m in Sources */,
 				22388E8F1A365DCA003B22B6 /* PianoView.m in Sources */,
 				22388E5C1A365D45003B22B6 /* AppDelegate.m in Sources */,
+				229D237E1A9FDD8A0033D7EC /* CoreAudioUtility.m in Sources */,
 				22388E591A365D45003B22B6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +486,7 @@
 				22388E781A365D46003B22B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22388E791A365D46003B22B6 /* Build configuration list for PBXNativeTarget "PianoTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +495,7 @@
 				22388E7B1A365D46003B22B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

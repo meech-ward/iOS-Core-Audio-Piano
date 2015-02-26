@@ -21,7 +21,7 @@
 -(void)down;
 -(void)up;
 
-@property (nonatomic) short keyNumber;
+@property (nonatomic) int keyNumber;
 @property (nonatomic, readonly) BOOL isUp;
 @property (nonatomic, readonly) BOOL isHighlighted;
 

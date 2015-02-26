@@ -9,6 +9,9 @@
 // Piano
 #import "PianoView.h"
 
+// Audio
+#import "AudioPlayerController.h"
+
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <PianoViewDelegate>
@@ -17,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet PianoView *pianoView;
 
 @property (weak, nonatomic) IBOutlet UISlider *slider;
+
+@property (strong, nonatomic) AudioPlayerController *audioController;
 
 - (IBAction)sliderValueChanged:(id)sender;
 
