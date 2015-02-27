@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>66ADD11F-5149-4347-95B6-0CD79E1108FE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Piano</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3752405AFECDDC10F922B267B7087902A5AB7F7F</key>
+		<string>https://github.com/meech-ward/iOSPiano.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Piano.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3752405AFECDDC10F922B267B7087902A5AB7F7F</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/meech-ward/iOSPiano.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3752405AFECDDC10F922B267B7087902A5AB7F7F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3752405AFECDDC10F922B267B7087902A5AB7F7F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Core%20Audio%20Piano</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -10,16 +10,8 @@
 
 #import "CoreAudioUtility.h"
 
-//
-typedef struct _audioPlayerData {
-    AudioUnit outputUnit; // Default ouput audio unit
-    double startingFrameCount; // Counter that represnts the current offsetin the audio wave
-    double frequency; // The frequency at which the audio should play
-} AudioPlayerData;
-
-
 @implementation AudioPlayerController {
-    AudioPlayerData *audioPlayerData;
+    AudioUnit outputUnit;
 }
 
 #pragma mark - Setup
@@ -34,9 +26,6 @@ typedef struct _audioPlayerData {
 }
 
 - (void)setupAudioPlayer {
-    // Initialize the audio player
-    audioPlayerData = calloc(1, sizeof(AudioPlayerData));
-    
     // Create an Audio Componenet Description that matches the device speakers as output
     AudioComponentDescription outputcd = {0};
     outputcd.componentType = kAudioUnitType_Output;
@@ -49,67 +38,41 @@ typedef struct _audioPlayerData {
         NSLog(@"Failed to get output unit, exiting...");
         exit(-1);
     }
-    CheckError(AudioComponentInstanceNew(comp, &audioPlayerData->outputUnit), "Couldn't open componenet for outputUnit");
+    CheckError(AudioComponentInstanceNew(comp, &outputUnit), "Couldn't open componenet for outputUnit");
     
     // Setup the callback function for the audio
     AURenderCallbackStruct input;
     input.inputProc = AudioCallbackFunction;
-    input.inputProcRefCon = audioPlayerData; // Any data that needs to be passed to the function
-    CheckError(AudioUnitSetProperty(audioPlayerData->outputUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &input, sizeof(input)), "AudioUnitSetProperty failed");
+    input.inputProcRefCon = (__bridge void *)self; // Any data that needs to be passed to the function
+    CheckError(AudioUnitSetProperty(outputUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &input, sizeof(input)), "AudioUnitSetProperty failed");
     
     // Setup the audio unit stream format
-    setupAdioUnitStreamFormat(&audioPlayerData->outputUnit);
+    setupAdioUnitStreamFormat(&outputUnit);
     
     // Initialize the audio unit
-    CheckError(AudioUnitInitialize(audioPlayerData->outputUnit), "AudioUnitInitialize failed");
+    CheckError(AudioUnitInitialize(outputUnit), "AudioUnitInitialize failed");
     
     // Start playing
-    CheckError(AudioOutputUnitStart(audioPlayerData->outputUnit), "Couldn't start output unit");
+    CheckError(AudioOutputUnitStart(outputUnit), "Couldn't start output unit");
 }
-
-#pragma mark - Actions
-
-- (void)playFrequency:(double)frequency {
-    // Play the sine wave at the passed in frequency for 0.5 second
-    audioPlayerData->frequency = frequency;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlaying) object:nil];
-    [self performSelector:@selector(stopPlaying) withObject:nil afterDelay:0.5];
-}
--(void)stopPlaying {
-    audioPlayerData->frequency = 0;
-}
-
 
 #pragma mark - Callback Function
 
 OSStatus AudioCallbackFunction(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrame, AudioBufferList * ioData) {
     
     // Get the passed in audio data
-    AudioPlayerData *player = (AudioPlayerData*)inRefCon;
+    AudioPlayerController *controller = (__bridge AudioPlayerController*)inRefCon;
     
-    // Setup loop variables
-    double j = player->startingFrameCount;
-    double cycleLength = 44100.0 / player->frequency;
-    
-    // Loop through the frames and play the sine wave
+    // Loop through the frames
     for (int frame = 0; frame < inNumberFrame; ++frame) {
-        // Play the sine wave for the current frame
-        Float32 *data = (Float32*)ioData->mBuffers[0].mData;
-        (data)[frame] = (Float32)sin (2 * M_PI * (j / cycleLength));
-        
-        // Update loop variables
-        j += 1.0;
-        if (j > cycleLength)
-            j -= cycleLength;
+        // Play the data source audio
+        ((Float32 *)ioData->mBuffers[0].mData)[frame] =
+        [controller.dataSource audioControllerDataSourceNextFrame];
     }
-    
-    // Adjust the starting frame
-    player->startingFrameCount = j;
     return noErr;
 }
 
 #pragma mark - Utility Functions
-// Insert Listing 4.2 here
 
 void setupAdioUnitStreamFormat(AudioUnit *outputUnit) {
     
@@ -138,10 +101,9 @@ void setupAdioUnitStreamFormat(AudioUnit *outputUnit) {
 
 - (void)dealloc {
     // Remove the audio player
-    AudioOutputUnitStop(audioPlayerData->outputUnit);
-    AudioUnitUninitialize(audioPlayerData->outputUnit);
-    AudioComponentInstanceDispose(audioPlayerData->outputUnit);
-    free(audioPlayerData);
+    AudioOutputUnitStop(outputUnit);
+    AudioUnitUninitialize(outputUnit);
+    AudioComponentInstanceDispose(outputUnit);
 }
 
 @end

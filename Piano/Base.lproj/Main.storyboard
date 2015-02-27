@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCX-kx-Cl9">
-                                <rect key="frame" x="0.0" y="174" width="600" height="426"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="486"/>
                                 <subviews>
                                     <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hvx-mf-Mno" customClass="PianoView">
-                                        <rect key="frame" x="0.0" y="0.0" width="3500" height="426"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="3500" height="486"/>
                                         <color key="backgroundColor" red="1" green="1" blue="0.40000000596046448" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="3500" id="Mo1-Wo-rlh"/>
@@ -41,8 +41,23 @@
                                     <constraint firstItem="Hvx-mf-Mno" firstAttribute="leading" secondItem="mCX-kx-Cl9" secondAttribute="leading" id="ipt-A5-Nik"/>
                                 </constraints>
                             </scrollView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="otx-ZF-zR4">
+                                <rect key="frame" x="16" y="40" width="568" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="FoQ-vr-agW"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Wurlitzer"/>
+                                    <segment title="Fender Rhodes"/>
+                                    <segment title="Tubular Bell"/>
+                                    <segment title="Sitar"/>
+                                </segments>
+                                <connections>
+                                    <action selector="pianoChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Wia-OK-Xe4"/>
+                                </connections>
+                            </segmentedControl>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="8zI-FR-sIm">
-                                <rect key="frame" x="14" y="20" width="572" height="31"/>
+                                <rect key="frame" x="14" y="76" width="572" height="31"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="lmL-6M-TLo"/>
                                 </connections>
@@ -52,12 +67,27 @@
                         <constraints>
                             <constraint firstAttribute="height" secondItem="mCX-kx-Cl9" secondAttribute="height" multiplier="2" constant="-252" id="0Yj-t6-gfQ"/>
                             <constraint firstItem="mCX-kx-Cl9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0uV-oE-KcF"/>
+                            <constraint firstItem="8zI-FR-sIm" firstAttribute="top" secondItem="otx-ZF-zR4" secondAttribute="bottom" constant="8" id="Box-k8-L30"/>
+                            <constraint firstItem="otx-ZF-zR4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="QFu-uI-Dqg"/>
+                            <constraint firstItem="otx-ZF-zR4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Ugk-XR-JhK"/>
                             <constraint firstItem="8zI-FR-sIm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="W1Z-Ua-emT"/>
                             <constraint firstItem="8zI-FR-sIm" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="dpZ-sB-aRd"/>
                             <constraint firstItem="8zI-FR-sIm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="hSY-Yz-uNV"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mCX-kx-Cl9" secondAttribute="bottom" id="k4T-aF-4wl"/>
+                            <constraint firstItem="otx-ZF-zR4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="kD2-zA-idP"/>
+                            <constraint firstItem="mCX-kx-Cl9" firstAttribute="top" secondItem="8zI-FR-sIm" secondAttribute="bottom" constant="8" id="n4t-zj-drK"/>
+                            <constraint firstItem="otx-ZF-zR4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="sma-gC-9Wq"/>
+                            <constraint firstItem="mCX-kx-Cl9" firstAttribute="top" secondItem="8zI-FR-sIm" secondAttribute="bottom" constant="8" id="uYk-Bp-yMV"/>
                             <constraint firstAttribute="trailing" secondItem="mCX-kx-Cl9" secondAttribute="trailing" id="vIq-0e-MSx"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="sma-gC-9Wq"/>
+                                <exclude reference="hSY-Yz-uNV"/>
+                                <exclude reference="0Yj-t6-gfQ"/>
+                                <exclude reference="uYk-Bp-yMV"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="pianoView" destination="Hvx-mf-Mno" id="qjc-oQ-xuO"/>

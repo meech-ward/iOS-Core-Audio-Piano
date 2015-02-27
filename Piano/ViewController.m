@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.audioController = [[AudioPlayerController alloc] init];
+    self.instrumentController = [[AudioInstrumentController alloc] initWithInstrument:InstrumentWurley];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -42,7 +42,7 @@
     double frequency = pow(pow(2, 1.0/12.0), key-49)*440;
     
     // Play the frequency
-    [self.audioController playFrequency:frequency];
+    [self.instrumentController playFrequency:frequency];
     
     NSLog(@"piano key down: %i, frequency: %f", key, frequency);
 }
@@ -55,6 +55,31 @@
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
     [self adjustPianoViewToPercent:sender.value];
+}
+
+- (IBAction)pianoChanged:(UISegmentedControl *)sender {
+    // Determine the instrument from the segment control
+    Instrument instrument;
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            instrument = InstrumentWurley;
+            break;
+        case 1:
+            instrument = InstrumentRhodey;
+            break;
+        case 2:
+            instrument = InstrumentTubeBell;
+            break;
+        case 3:
+            instrument = InstrumentSitar;
+            break;
+        default:
+            instrument = InstrumentWurley;
+            break;
+    }
+    
+    // Set the current instrument
+    [self.instrumentController setCurrentInstrument:instrument];
 }
 
 #pragma mark - Piano Scroll View

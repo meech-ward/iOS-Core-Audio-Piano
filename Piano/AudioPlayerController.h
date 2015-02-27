@@ -7,10 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-@import AudioToolbox;
+#import <AudioToolbox/AudioToolbox.h>
+
+@protocol AudioPlayerControllerDataSource;
 
 @interface AudioPlayerController : NSObject
 
-- (void)playFrequency:(double)frequency;
+@property (weak, nonatomic) id <AudioPlayerControllerDataSource> dataSource;
+
+@end
+
+@protocol AudioPlayerControllerDataSource <NSObject>
+
+- (Float32)audioControllerDataSourceNextFrame;
 
 @end
