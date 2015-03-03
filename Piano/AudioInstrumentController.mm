@@ -16,7 +16,7 @@
 #include "Wurley.h"
 #include "Rhodey.h"
 #include "TubeBell.h"
-#include <Sitar.h>
+#include "Sitar.h"
 
 @interface AudioInstrumentController() <AudioPlayerControllerDataSource>
 
@@ -25,23 +25,30 @@
 @end
 
 @implementation AudioInstrumentController {
-    stk::Instrmnt *currentInstrument;
+    // Stk Instuments
+    stk::TubeBell *tubeBell;
+    stk::Wurley *wurley;
+    stk::Sitar *sitar;
+    stk::Rhodey *rhodey;
 }
 
 #pragma mark - Setup
 
 - (id)init {
-    self = [self initWithInstrument:InstrumentRhodey];
+    self = [self initWithInstrument:InstrumentTypeRhodey];
     return self;
 }
 
-- (id)initWithInstrument:(Instrument)instrument {
+- (id)initWithInstrument:(InstrumentType)instrument {
     self = [super init];
     if (self) {
-        // Set up stk
+        // Set up audio
         stk::Stk::setRawwavePath([[[NSBundle mainBundle] pathForResource:@"rawwaves" ofType:@"bundle"] UTF8String]);
         
-        // Setup the instrument
+        // Setup the instruments
+        [self setupInstruments];
+        
+        // Set the current instrument
         [self setCurrentInstrument:instrument];
         
         // Setup the audio Controller
@@ -51,40 +58,50 @@
     return self;
 }
 
-- (void)setCurrentInstrument:(Instrument)instrument {
-    // Release any instruments
-    if (currentInstrument) {
-        delete(currentInstrument);
-    }
-    
-    // Initialize the instrument object to the correct type of instrument
-    switch (instrument) {
-        case InstrumentSitar:
-            currentInstrument = new stk::Sitar();
-            break;
-        case InstrumentWurley:
-            currentInstrument = new stk::Wurley();
-            break;
-        case InstrumentTubeBell:
-            currentInstrument = new stk::TubeBell();
-            break;
-        case InstrumentRhodey:
-            currentInstrument = new stk::Rhodey();
-            break;
-    }
+- (void)setupInstruments {
+    // Initialize the instruments
+    sitar = new stk::Sitar();
+    wurley = new stk::Wurley();
+    tubeBell = new stk::TubeBell();
+    rhodey = new stk::Rhodey();
 }
 
 
 #pragma mark - Actions
 
 - (void)playFrequency:(double)frequency {
-    currentInstrument->noteOn(frequency, 1);
+    // Start a note with the given frequency and an amplitude of 1.
+    switch (_currentInstrument) {
+        case InstrumentTypeSitar:
+            sitar->noteOn(frequency, 1);
+            break;
+        case InstrumentTypeWurley:
+            wurley->noteOn(frequency, 1);
+            break;
+        case InstrumentTypeTubeBell:
+            tubeBell->noteOn(frequency, 1);
+            break;
+        case InstrumentTypeRhodey:
+            rhodey->noteOn(frequency, 1);
+            break;
+    }
 }
 
 #pragma mark - AudioPlayerController
 
 - (Float32)audioControllerDataSourceNextFrame {
-    return currentInstrument->tick(0);
+    // Return one output sample of the current instrument to channel 0
+    switch (_currentInstrument) {
+        case InstrumentTypeSitar:
+            return sitar->tick(0);
+        case InstrumentTypeWurley:
+            return wurley->tick(0);
+        case InstrumentTypeTubeBell:
+            return tubeBell->tick(0);
+        case InstrumentTypeRhodey:
+            return rhodey->tick(0);
+    }
+    return 0;
 }
 
 @end

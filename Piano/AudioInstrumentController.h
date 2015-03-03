@@ -9,17 +9,18 @@
 #import <Foundation/Foundation.h>
 
 // Enum for the different types of instruments that can be played
-typedef NS_ENUM(NSUInteger, Instrument) {
-    InstrumentWurley,
-    InstrumentRhodey,
-    InstrumentSitar,
-    InstrumentTubeBell,
+typedef NS_ENUM(NSUInteger, InstrumentType) {
+    InstrumentTypeWurley,
+    InstrumentTypeRhodey,
+    InstrumentTypeSitar,
+    InstrumentTypeTubeBell,
 };
 
 @interface AudioInstrumentController : NSObject
 
-- (id)initWithInstrument:(Instrument)instrument;
-- (void)setCurrentInstrument:(Instrument)instrument;
+- (id)initWithInstrument:(InstrumentType)instrument;
 - (void)playFrequency:(double)frequency;
+
+@property (nonatomic) InstrumentType currentInstrument;
 
 @end

@@ -17,8 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    self.instrumentController = [[AudioInstrumentController alloc] initWithInstrument:InstrumentWurley];
+    
+    // Initialize the instrument controller and set the instrument to Wurlitzer (The current instruement selected on the segmented control)
+    self.instrumentController = [[AudioInstrumentController alloc] initWithInstrument:InstrumentTypeWurley];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -43,8 +44,6 @@
     
     // Play the frequency
     [self.instrumentController playFrequency:frequency];
-    
-    NSLog(@"piano key down: %i, frequency: %f", key, frequency);
 }
 
 -(void)pianoView:(PianoView *)piano keyUp:(int)key {
@@ -59,22 +58,22 @@
 
 - (IBAction)pianoChanged:(UISegmentedControl *)sender {
     // Determine the instrument from the segment control
-    Instrument instrument;
+    InstrumentType instrument;
     switch (sender.selectedSegmentIndex) {
         case 0:
-            instrument = InstrumentWurley;
+            instrument = InstrumentTypeWurley;
             break;
         case 1:
-            instrument = InstrumentRhodey;
+            instrument = InstrumentTypeRhodey;
             break;
         case 2:
-            instrument = InstrumentTubeBell;
+            instrument = InstrumentTypeTubeBell;
             break;
         case 3:
-            instrument = InstrumentSitar;
+            instrument = InstrumentTypeSitar;
             break;
         default:
-            instrument = InstrumentWurley;
+            instrument = InstrumentTypeWurley;
             break;
     }
     
